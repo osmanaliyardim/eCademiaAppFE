@@ -1,0 +1,129 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>eCademia Courses</title>
+  <meta name="description" content="eCademia Courses">
+  <meta name="keywords" content="Course, Learn, Practice">
+  <meta name="author" content="Osman Ali YARDIM">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="eCademia">
+  <meta property="og:type" content="Courses">
+  <meta property="og:url" content="ecademia.com">
+  <meta property="og:image" content="">
+
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" href="icon.png">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/style.css">
+
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body id="body">
+
+  <!-- Site content -->
+  <nav class="navbar container-fluid-nav sticky-top">
+    <div class="container-fluid">
+      <a class="navbar-brand logo" href="./index.html">
+        <h1 class="h2 mt-2 logo text-muted">eCademia Online Courses</h1>
+      </a>
+      <div class="cards me-5">
+        <div class="btn-group">
+          <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <img
+              src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/32/000000/external-shopping-cart-interface-kiranshastry-lineal-kiranshastry.png"
+              alt="Cart">
+            <span id="cartItemCount"
+              class="position-absolute top-0 start-55 translate-middle badge rounded-pill bg-secondary">0</span>
+          </button>
+          <ul class="dropdown-menu" id="miniCart">
+            <li>Your cart is empty.</li>
+          </ul>
+        </div>
+        <a id="loginBtn" class="btn btn-secondary" href="./loginPage.html">Login</a>
+        <button id="logoutBtn" class="btn btn-danger border border-danger rounded d-none">Logout</button>
+      </div>
+    </div>
+  </nav>
+  <div class="row" style="width:100%">
+    <div class="col col-12 col-sm-3 col-lg-2 bg-transparent">
+      <!-- Menu/categories will be placed here-->
+      <ul>
+        <li>Hardware</li>
+        <li>Software</li>
+        <li>Outdoor</li>
+        <li>Primary/Elementary School</li>
+        <li>University/College</li>
+      </ul>
+    </div>
+    <div class="col col-12 col-sm-9 col-lg-10">
+      <div id="products" class="container center">
+        <!-- Products (courses) will be placed here-->
+        <!--                 <ul>
+                <li v-for="product in products"> {{product}} </li>
+            </ul> -->
+
+
+        <div class="container mt-5 mb-3">
+          <div class="row">
+
+            <div class="col-md-3" v-for="product in products">
+              <div class="card p-3 mb-2">
+
+                {{product}}
+
+                <!-- <div class="d-flex justify-content-between">
+                                <div class="d-flex flex-row align-items-center">
+                                    <div class="icon"> <i class="bx bxl-mailchimp"></i> </div>
+                                    <div class="ms-2 c-details">
+                                        <h6 class="mb-0">Mailchimp</h6> <span>1 days ago</span>
+                                    </div>
+                                </div>
+                                <div class="badge"> <span>Design</span> </div>
+                            </div>
+                            <div class="mt-5">
+                                <h3 class="heading">Senior Product<br>Designer-Singapore</h3>
+                                <div class="mt-5">
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <div class="mt-3"> <span class="text1">32 Applied <span class="text2">of 50 capacity</span></span> </div>
+                                </div>
+                            </div> -->
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+      </div>
+      <div class="spinner container-fluid">
+        <div class="spinner-border" role="status" id="spinner" style="display: none;">
+          <span class="visually-hidden"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/vendor/modernizr-3.11.2.min.js"></script>
+  <script src="js/plugins.js"></script>
+  <script src="https://unpkg.com/vue@next"></script>
+  <script src="js/main.js"></script>
+
+  <!-- Google Analytics: UA-XXXXX-Y will be my site's ID. -->
+  <script>
+    window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
+    ga('create', 'UA-XXXXX-Y', 'auto'); ga('set', 'anonymizeIp', true); ga('set', 'transport', 'beacon'); ga('send', 'pageview')
+  </script>
+  <script src="https://www.google-analytics.com/analytics.js" async></script>
+</body>
+
+</html>
