@@ -1,23 +1,35 @@
 Vue.createApp({ // Creating Vue app and setting its configuration
   data() {
     return {
-      products: null,
+      productsAll: null,
       dateNow: ""
     }
   },
   async created() {
-    const response = await fetch("https://localhost:7223/api/v1/Courses/getAll");
-    const info = await response.json();
-    this.products = info.data;
-    this.products.forEach(p => p.creationDate = new Date(p.creationDate));
+    const responseAllCourses = await fetch("https://localhost:7223/api/v1/Courses/getAll");
+    const infoAllCourses = await responseAllCourses.json();
+    this.productsAll = infoAllCourses.data;
+    this.productsAll.forEach(p => p.creationDate = new Date(p.creationDate));
+
     setInterval(this.getNow, 100);
   },
   methods: {
-    getNow: function() {
-        const today = new Date();
-        const date = today.getFullYear() + '-' + ("0" + (today.getMonth() + 1)).slice(-2) + '-' + today.getDate();
-        const dateTime = date;
-        this.dateNow = new Date(dateTime);
+    getNow: function () {
+      const today = new Date();
+      const date = today.getFullYear() + '-' + ("0" + (today.getMonth() + 1)).slice(-2) + '-' + today.getDate();
+      const dateTime = date;
+      this.dateNow = new Date(dateTime);
     }
-}
+  }
 }).mount('#products');
+
+let categoriesBtn = document.getElementById("categories");
+/*
+* That is the listener for getting courses by category id
+*/
+categoriesBtn.addEventListener('click', async (event) => {
+  event.preventDefault();
+  const anchor = event.target.closest("a");
+  const id = anchor.dataset.id;
+  await getCourses(id);
+});
