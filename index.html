@@ -58,44 +58,34 @@
   </nav>
   <div class="row" style="width:100%">
     <div class="col col-12 col-sm-3 col-lg-2 mt-5 bg-transparent">
-      <!-- Menu/categories will be placed here-->
-<!--       <nav class="nav nav-pills flex-column">
-        <ul>
-          <li><a class="nav-link active bg-secondary" aria-current="page" href="#">All Courses</a></li>
-          <li><a class="nav-link bg-secondary" href="#">Software</a></li>
-          <li><a class="nav-link bg-secondary" href="#">Outdoor</a></li>
-          <li><a class="nav-link bg-secondary" href="#">Primary/Elementary School</a></li>
-          <li><a class="nav-link bg-secondary" href="#">University/College</a></li>
-        </ul>
-      </nav> -->
 
       <div class="vertical-nav bg-white" id="sidebar">
-        <p class="text-gray text-center text-uppercase mb-0 bg-warning"><b>CATEGORIES</b></p>
+        <p class="text-dark bg-warning text-center"><b>CATEGORIES</b></p>
 
-        <ul class="nav flex-column bg-white text-center mb-0">
+        <ul class="nav flex-column bg-white text-center" id="categories">
           <li class="nav-item">
-            <a href="#" class="nav-link text-dark font-italic bg-light">
-                      <img src="/img/adn-brands.svg" width="24px" height="24px" alt="All Courses">
-                      All Courses
-                  </a>
+            <a data-id="1" class="nav-link bg-light">
+              <img src="/img/adn-brands.svg" width="24px" height="24px" alt="All Courses">
+              All Courses
+            </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link text-dark font-italic">
-                      <img src="/img/code-solid.svg" width="24px" height="24px" alt="All Courses">
-                      Software
-                  </a>
+            <a data-id="2" class="nav-link">
+              <img src="/img/code-solid.svg" width="24px" height="24px" alt="Development">
+              Development
+            </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link text-dark font-italic">
-                      <img src="/img/hiking-solid.svg" width="24px" height="24px" alt="All Courses">
-                      Outdoor
-                  </a>
+            <a data-id="3" class="nav-link">
+              <img src="/img/hiking-solid.svg" width="24px" height="24px" alt="Business">
+              Business
+            </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link text-dark font-italic">
-                      <img src="/img/graduation-cap-solid.svg" width="24px" height="24px" alt="All Courses">
-                      College
-                  </a>
+            <a data-id="4" class="nav-link">
+              <img src="/img/graduation-cap-solid.svg" width="24px" height="24px" alt="Finance">
+              Finance
+            </a>
           </li>
         </ul>
 
@@ -105,17 +95,13 @@
 
     <div class="col col-12 col-sm-9 col-lg-10">
       <div id="products" class="container center">
-        <!-- Products (courses) will be placed here-->
-        <!--                 <ul>
-                <li v-for="product in products"> {{product}} </li>
-            </ul> -->
-
 
         <div class="container mt-5 mb-3">
-          <div class="row">
+          <div class="row" id="courses">
 
-            <div class="card m-2" v-for="product in products" style="width: 17rem;">
-              <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger" v-if="!(dateNow - product.creationDate > 1209600000)">
+            <div class="card m-2" v-for="product in productsAll" style="width: 17rem;">
+              <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger"
+                v-if="!(dateNow - product.creationDate > 1209600000)">
                 NEW COURSE
                 <span class="visually-hidden">new course notify</span>
               </span>
@@ -126,14 +112,14 @@
                   $ {{product.salePrice}}
                 </span>
                 <p class="card-text">{{product.description}}</p>
-                <button class="btn btn-warning buyBtn" :data-name="product.name" :data-price="product.salePrice">Enroll</button>
+                <button class="btn btn-warning buyBtn" :data-name="product.name"
+                  :data-price="product.salePrice">Enroll</button>
                 <a href="#" class="btn btn-primary" style="float:right;">See Details</a>
               </div>
             </div>
 
           </div>
         </div>
-
 
       </div>
 
@@ -150,8 +136,8 @@
   <script src="https://unpkg.com/vue@next"></script>
   <script src="js/vendor/modernizr-3.11.2.min.js"></script>
   <script src="js/plugins.js"></script>
+  <script src="js/getCourses.js"></script>
   <script src="js/main.js"></script>
-
   <!-- Google Analytics: UA-XXXXX-Y will be my site's ID. -->
   <script>
     window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
