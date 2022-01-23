@@ -56,3 +56,37 @@ body {
 .text2 {
     color: #a5aec0
 }
+
+.notify-badge{
+  position: absolute;
+  background: red;
+  height:3rem;
+  top:0.5rem;
+  right:1rem;
+  width:3rem;
+  text-align: center;
+  line-height: 2.75rem;
+  font-size: 1rem;
+  border-radius: 50%;
+  color:black;
+  border:1px solid gray;
+}
+
+.notify-free-badge{
+  position: absolute;
+  background: blue;
+  height:3rem;
+  top:0.5rem;
+  right:1rem;
+  width:3rem;
+  text-align: center;
+  line-height: 2.75rem;
+  font-size: 1rem;
+  border-radius: 50%;
+  color:black;
+  border:1px solid gray;
+}
+
+.activeItem {
+  background-color: rgb(204, 204, 204);
+}
