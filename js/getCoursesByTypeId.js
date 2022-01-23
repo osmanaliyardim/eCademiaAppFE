@@ -6,12 +6,10 @@ let spinner = document.getElementById("spinner");
  * @function
  * @param {number} typeId - Category id
  */
-async function getCourses(typeId) {
+async function getCoursesByTypeId(typeId, pageNumber) {
   spinner.style.display = "block";
 
-  let response = await fetch(
-    `https://localhost:7223/api/v1/Courses/getCoursesByTypeId?typeId=`+typeId
-  );
+  let response = await fetch(`https://localhost:7223/api/v1/Courses/getCoursesByTypeId?typeId=${typeId}&pageNumber=${pageNumber}`);
   let courses = await response.json();
   let courseArr = courses.data;
   spinner.style.display = "none";
@@ -21,7 +19,7 @@ async function getCourses(typeId) {
 /**
  * Printing courses to screen
  * @function
- * @param {Array} courseArr - Printable course info from API
+ * @param {Array} courseArr - Printable courses info from API
  */
 function printCourses(courseArr) {
   productsDiv.innerHTML = "";
@@ -45,7 +43,7 @@ function printCourses(courseArr) {
                           </span>
                           <p class="card-text">${course.description}</p>
                           <button class="btn btn-warning buyBtn" data-name="course.Name" data-price="course.SalePrice">Enroll</button>
-                          <a href="./courseDetails.html?${course.id}" id="${course.id}" class="btn btn-primary" style="float:right;">See Details</a>
+                          <a href="./courseDetails.html?id=${course.id}" id="${course.id}" class="btn btn-primary" style="float:right;">See Details</a>
                         </div>
                       </div>
                     `;

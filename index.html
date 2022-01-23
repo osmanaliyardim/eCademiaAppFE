@@ -59,20 +59,20 @@
   <div class="row" style="width:100%">
     <div class="col col-12 col-sm-3 col-lg-2 mt-5 bg-transparent">
 
-      <div class="vertical-nav bg-white" id="sidebar">
-        <p class="text-dark bg-warning text-center"><b>CATEGORIES</b></p>
+      <div class="vertical-nav" id="sidebar">
+        <p class="text-dark bg-warning text-center mb-0"><b>CATEGORIES</b></p>
 
-        <ul class="nav flex-column bg-white text-center" id="categories">
-          <li class="nav-item">
-            <a data-id="1" class="nav-link bg-light">
+        <ul class="nav flex-column text-center bg-white" id="categories">
+          <li class="nav-item activeItem">
+            <a data-id="1" class="nav-link">
               <img src="/img/adn-brands.svg" width="24px" height="24px" alt="All Courses">
               All Courses
             </a>
           </li>
           <li class="nav-item">
             <a data-id="2" class="nav-link">
-              <img src="/img/code-solid.svg" width="24px" height="24px" alt="Development">
-              Development
+              <img src="/img/code-solid.svg" width="24px" height="24px" alt="Software">
+              Software
             </a>
           </li>
           <li class="nav-item">
@@ -83,8 +83,14 @@
           </li>
           <li class="nav-item">
             <a data-id="4" class="nav-link">
-              <img src="/img/graduation-cap-solid.svg" width="24px" height="24px" alt="Finance">
-              Finance
+              <img src="/img/graduation-cap-solid.svg" width="24px" height="24px" alt="Web Development">
+              Web Development
+            </a>
+          </li>
+          <li class="nav-item">
+            <a data-id="5" class="nav-link">
+              <img src="/img/brain-solid.svg" width="24px" height="24px" alt="Leadership">
+              Leadership
             </a>
           </li>
         </ul>
@@ -103,7 +109,6 @@
               <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger"
                 v-if="!(dateNow - product.creationDate > 1209600000)">
                 NEW COURSE
-                <span class="visually-hidden">new course notify</span>
               </span>
               <img src="/tile.png" class="card-img-top p-3" alt="Course">
               <div class="card-body">
@@ -114,7 +119,7 @@
                 <p class="card-text">{{product.description}}</p>
                 <button class="btn btn-warning buyBtn" :data-name="product.name"
                   :data-price="product.salePrice">Enroll</button>
-                <a href="#" class="btn btn-primary" style="float:right;">See Details</a>
+                <a :href="'courseDetails.html?id=' + product.id" class="btn btn-primary" style="float:right;">See Details</a>
               </div>
             </div>
 
@@ -136,7 +141,7 @@
   <script src="https://unpkg.com/vue@next"></script>
   <script src="js/vendor/modernizr-3.11.2.min.js"></script>
   <script src="js/plugins.js"></script>
-  <script src="js/getCourses.js"></script>
+  <script src="js/getCoursesByTypeId.js"></script>
   <script src="js/main.js"></script>
   <!-- Google Analytics: UA-XXXXX-Y will be my site's ID. -->
   <script>
