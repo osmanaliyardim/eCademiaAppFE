@@ -38,24 +38,31 @@
       <a class="navbar-brand logo" href="./index.html">
         <h1 class="h2 mt-2 logo text-muted">e-Cademia</h1>
       </a>
-      <div class="cards">
+      <div class="cards me-5">
+
         <div class="btn-group">
           <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            <img
-              src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/32/000000/external-shopping-cart-interface-kiranshastry-lineal-kiranshastry.png"
-              alt="Cart">
-            <span id="cartItemCount"
-              class="position-absolute top-0 start-55 translate-middle badge rounded-pill bg-secondary">0</span>
+            <img src="./img/shopping-cart-solid.svg" alt="Cart">
+            <span id="cartItemCount" class="position-absolute top-0 start-55 translate-middle badge rounded-pill bg-secondary">0</span>
           </button>
           <ul class="dropdown-menu" id="miniCart">
             <li>Your cart is empty.</li>
           </ul>
         </div>
+
+        <a id="registerBtn" class="btn btn-secondary mx-3" href="./register.html">Register</a>
         <a id="loginBtn" class="btn btn-secondary" href="./login.html">Login</a>
         <button id="logoutBtn" class="btn btn-danger border border-danger rounded d-none">Logout</button>
       </div>
     </div>
   </nav>
+
+  <div class="row fixed-bottom d-none" id="successAlert">
+    <div class="alert alert-success fade show" role="alert">
+      <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+      <strong>Success!</strong> Your watch has been added to your cart. You can see your cart at the top of your screen.</div>
+  </div>
+
   <div class="row" style="width:100%">
     <div class="col col-12 col-sm-3 col-lg-2 mt-5 bg-transparent">
 

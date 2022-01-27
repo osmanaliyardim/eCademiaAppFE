@@ -69,15 +69,19 @@ var app = new Vue({
 });
 
 let regButton = document.getElementById("regButton");
+let alertBox = document.getElementById("alertBox");
+let alertInfo = document.getElementById("alertInfo");
+
 // To send registration
 regButton.addEventListener('click', async (e) => {
-  e.preventDefault();
+  // Take variables from user's screen
   let firstName = document.getElementById("firstName").value;
   let lastName = document.getElementById("lastName").value;
   let email = document.getElementById("email").value;
   let password = document.getElementById("password").value;
   let confirmPassword = document.getElementById("confirmPassword").value;
 
+  // Make user's data JSON/array format
   const data = {
     firstName: firstName,
     lastName: lastName,
@@ -89,14 +93,25 @@ regButton.addEventListener('click', async (e) => {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
-  }).then((res) => {
+  }).then(async (res) => {
+    let info = await res.json();
     if (res.ok) {
-      let info = await res.json();
+      // if response is successfull
       let token = info.data.token;
       let tokenExpire = new Date(info.data.expiration);
       window.localStorage.setItem("token", token);
       window.localStorage.setItem("tokenExpire", tokenExpire);
       window.location.href = "./index.html";
+    }
+    else{
+      // if response is not successfull
+      e.preventDefault();
+      alertInfo.innerHTML = info.message;
+      alertBox.classList.remove("d-none");
+
+      setTimeout(function () {
+        alertBox.classList.add("d-none");
+      }, 3000);
     }
   });
 });
