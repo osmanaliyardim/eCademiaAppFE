@@ -39,13 +39,15 @@ var app = new Vue({
   }
 });
 
-let regButton = document.getElementById("regButton");
+let logButton = document.getElementById("logButton");
+let alertBox = document.getElementById("alertBox");
+let alertInfo = document.getElementById("alertInfo");
 // To send registration
-regButton.addEventListener('click', async (e) => {
-  e.preventDefault();
+logButton.addEventListener('click', async (e) => {
+  // Take variables from user's screen
   let email = document.getElementById("email").value;
   let password = document.getElementById("password").value;
-
+  // Make user's data JSON/array format
   const data = {
     email: email,
     password: password
@@ -55,13 +57,25 @@ regButton.addEventListener('click', async (e) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   }).then(async (res) => {
+    let info = await res.json();
     if (res.ok) {
-      let info = await res.json();
+      // if response is successfull
       let token = info.data.token;
       let tokenExpire = new Date(info.data.expiration);
       window.localStorage.setItem("token", token);
       window.localStorage.setItem("tokenExpire", tokenExpire);
+      window.localStorage.setItem("email", email);
       window.location.href = "./index.html";
+    }
+    else{
+      // if response is not successfull
+      e.preventDefault();
+      alertInfo.innerHTML = info.message;
+      alertBox.classList.remove("d-none");
+
+      setTimeout(function () {
+        alertBox.classList.add("d-none");
+      }, 3000);
     }
   });
 });

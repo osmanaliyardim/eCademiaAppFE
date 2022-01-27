@@ -8,7 +8,6 @@ let spinner = document.getElementById("spinner");
  */
 async function getCoursesByTypeId(typeId, pageNumber) {
   spinner.style.display = "block";
-
   let response = await fetch(`https://localhost:7223/api/v1/Courses/getCoursesByTypeId?typeId=${typeId}&pageNumber=${pageNumber}`);
   let courses = await response.json();
   let courseArr = courses.data;

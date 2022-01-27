@@ -24,6 +24,12 @@ Vue.createApp({
   }
 }).mount('#products');
 
+let loginBtn = document.getElementById("loginBtn");
+let logoutBtn = document.getElementById("logoutBtn");
+let registerBtn = document.getElementById("registerBtn");
+let miniCart = document.getElementById('miniCart');
+let cartCount = document.getElementById('cartItemCount');
+let cartAlert = document.getElementById('successAlert');
 let categoriesBtn = document.getElementById("categories");
 /*
 * That is the listener for getting courses by category id
@@ -65,6 +71,15 @@ document.addEventListener("scroll", (event) => {
   }
 });
 
+//Listener for logout operation
+logoutBtn.addEventListener('click', () => {
+  window.localStorage.removeItem("token");
+  window.localStorage.removeItem("tokenExpire");
+  window.localStorage.removeItem("cart");
+  window.localStorage.removeItem("prices");
+  checkIsLoggedIn();
+});
+
 /**
  * Printing courses to screen with pagination
  * @function
@@ -95,8 +110,8 @@ function printCoursesForPagination(courseArr) {
 }
 
 // To make category links active/inactive
-let navItems= document.querySelectorAll(".nav-item");
-document.addEventListener("DOMContentLoaded", function() {
+let navItems = document.querySelectorAll(".nav-item");
+document.addEventListener("DOMContentLoaded", function () {
   navItems.forEach((item) => {
     item.addEventListener('click', (event) => {
       event.preventDefault();
@@ -107,3 +122,132 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   })
 });
+
+// Add all cart/buy button click event
+async function addItemsToCart() {
+  let cart = window.localStorage.getItem("cart");
+  let prices = window.localStorage.getItem("prices");
+  let cartArr = [];
+  let priceArr = [];
+  if (cart !== null) {
+    let parsedArr = JSON.parse(cart);
+    cartArr = cartArr.concat(parsedArr);
+    let parsedPriceArr = JSON.parse(prices);
+    priceArr = priceArr.concat(parsedPriceArr);
+
+    let totalPrice = priceArr.reduce((previousValue, currentValue) => parseInt(previousValue) + parseInt(currentValue));
+    miniCart.innerHTML = '';
+    miniCart.innerHTML = cartArr.map((item) => `<li><a class='dropdown-item' href='#'>${item}</a></li>`).join('');
+
+    let divider = document.createElement('li');
+    divider.classList.add('dropdown-divider');
+
+    let total = document.createElement('li');
+    total.classList.add('bg-warning');
+    total.classList.add('dropdown-item');
+    total.append('TOTAL: ' + totalPrice + ' $');
+
+    miniCart.appendChild(divider);
+    miniCart.appendChild(total);
+
+    cartCount.innerHTML = cartArr.length;
+  }
+}
+
+// Add all cart/buy button click event
+async function addItemsToCartAndNotify() {
+  setTimeout(() => {
+    let buyBtn = document.getElementsByClassName("buyBtn");
+    for (let i = 0; i < buyBtn.length; i++) {
+      buyBtn[i].addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        let name = buyBtn[i].getAttribute('data-name');
+        let price = buyBtn[i].getAttribute('data-price');
+        let cart = window.localStorage.getItem("cart");
+        let prices = window.localStorage.getItem("prices");
+        let cartArr = [];
+        let priceArr = [];
+        cartArr.push(name);
+        priceArr.push(price);
+        if (cart !== null) {
+          let parsedArr = JSON.parse(cart);
+          cartArr = cartArr.concat(parsedArr);
+          let parsedPriceArr = JSON.parse(prices);
+          priceArr = priceArr.concat(parsedPriceArr);
+        }
+        window.localStorage.setItem("cart", JSON.stringify(cartArr));
+        window.localStorage.setItem("prices", JSON.stringify(priceArr));
+
+        let totalPrice = priceArr.reduce((previousValue, currentValue) => parseInt(previousValue) + parseInt(currentValue));
+        function createList(items) {
+          miniCart.innerHTML = '';
+          miniCart.innerHTML = items.map((item) => `<li><a class='dropdown-item' href='#'>${item}</a></li>`).join('');
+
+          let divider = document.createElement('li');
+          divider.classList.add('dropdown-divider');
+
+          let total = document.createElement('li');
+          total.classList.add('bg-warning');
+          total.classList.add('dropdown-item');
+          total.append('TOTAL: ' + totalPrice + ' $');
+
+          miniCart.appendChild(divider);
+          miniCart.appendChild(total);
+
+          cartCount.innerHTML = cartArr.length;
+
+          cartAlert.classList.remove('d-none');
+          setTimeout(() => {
+            cartAlert.classList.add('d-none');
+          }, 3000);
+        }
+
+        createList(cartArr);
+      });
+    }
+  }, 3000);
+}
+
+// Check if user's token is expired
+async function checkIfTokenExpired() {
+  if (window.localStorage.getItem("tokenExpire") !== null) {
+    const today = new Date();
+    //Sun Jan 23 2022 21:58:36 GMT+0300 (GMT+03:00)
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri","Sat"];
+    const comparingString = dayNames[today.getDay()] + ' ' + monthNames[today.getMonth()] + ' ' + today.getDate() + ' ' + today.getFullYear() + ' ' + today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds() + ' GMT+0300 (GMT+03:00)';
+    const comparingDate = new Date(comparingString);
+    const expDate = new Date(window.localStorage.getItem("tokenExpire"));
+
+    if (comparingDate > expDate) {
+      window.localStorage.removeItem("token");
+      window.localStorage.removeItem("tokenExpire");
+      window.localStorage.removeItem("cart");
+      window.localStorage.removeItem("prices");
+    }
+  }
+}
+
+// Check if user logged in or not
+async function checkIsLoggedIn() {
+  if (window.localStorage.getItem("token") === null) {
+    logoutBtn.classList.add("d-none");
+    loginBtn.classList.remove("d-none");
+    registerBtn.classList.remove("d-none");
+  }
+  else{
+    logoutBtn.classList.remove("d-none");
+    logoutBtn.classList.add("mx-3");
+    loginBtn.classList.add("d-none");
+    registerBtn.classList.add("d-none");
+  }
+}
+
+window.onload = async function () {
+  // Check if user logged in or not / add or remove cart
+  await checkIfTokenExpired();
+  await checkIsLoggedIn();
+  await addItemsToCart();
+  await addItemsToCartAndNotify();
+};

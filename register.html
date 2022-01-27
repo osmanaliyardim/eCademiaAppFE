@@ -73,12 +73,13 @@
                 v-on:blur="confirmPasswordBlured = true">
               <div class="invalid-feedback">Confirm password does not match!</div>
             </div>
-            <div class="mb-3"> <button v-on:click.stop.prevent="submit" class="btn btn-dark w-100" id="regButton">Register</button>
+            <div class="mb-3"> <button class="btn btn-dark w-100" id="regButton">Register</button>
             </div>
           </div>
-          <div class="success-data" v-else>
-            <div class="text-center d-flex flex-column"> <span
-                class="text-center fs-3 text-success">Registration Successfull!</span> </div>
+          <div class="alert alert-danger d-flex align-items-center d-none" role="alert" id="alertBox">
+            <img class="bi flex-shrink-0 me-2" src="./img/exclamation-circle-solid.svg" alt="Error" width="24" height="24" role="img" aria-label="Danger:"></img>
+            <div id="alertInfo">
+            </div>
           </div>
         </div>
       </div>
@@ -98,13 +99,6 @@
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/register.js"></script>
-
-  <!-- Google Analytics: UA-XXXXX-Y will be my site's ID. -->
-  <script>
-    window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
-    ga('create', 'UA-XXXXX-Y', 'auto'); ga('set', 'anonymizeIp', true); ga('set', 'transport', 'beacon'); ga('send', 'pageview')
-  </script>
-  <script src="https://www.google-analytics.com/analytics.js" async></script>
 </body>
 
 </html>
