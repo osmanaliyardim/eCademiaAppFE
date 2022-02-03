@@ -18,6 +18,11 @@
   <link rel="apple-touch-icon" href="icon.png">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 
+  <!-- Bootstrap and icons-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" crossorigin="anonymous">
+
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/style.css">
@@ -31,79 +36,106 @@
   <nav class="navbar container-fluid-nav sticky-top">
     <div class="container-fluid">
       <a class="navbar-brand logo" href="./index.html">
-        <h1 class="h2 mt-2 logo text-muted">eCademia Online Courses</h1>
+        <h1 class="h2 mt-2 logo text-muted">e-Cademia</h1>
       </a>
       <div class="cards me-5">
+
         <div class="btn-group">
           <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            <img
-              src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/32/000000/external-shopping-cart-interface-kiranshastry-lineal-kiranshastry.png"
-              alt="Cart">
-            <span id="cartItemCount"
-              class="position-absolute top-0 start-55 translate-middle badge rounded-pill bg-secondary">0</span>
+            <img src="./img/shopping-cart-solid.svg" alt="Cart">
+            <span id="cartItemCount" class="position-absolute top-0 start-55 translate-middle badge rounded-pill bg-secondary">0</span>
           </button>
           <ul class="dropdown-menu" id="miniCart">
             <li>Your cart is empty.</li>
           </ul>
         </div>
-        <a id="loginBtn" class="btn btn-secondary" href="./loginPage.html">Login</a>
+
+        <a id="registerBtn" class="btn btn-secondary mx-3" href="./register.html">Register</a>
+        <a id="loginBtn" class="btn btn-secondary" href="./login.html">Login</a>
         <button id="logoutBtn" class="btn btn-danger border border-danger rounded d-none">Logout</button>
       </div>
     </div>
   </nav>
+
+  <div class="row fixed-bottom d-none" id="successAlert">
+    <div class="alert alert-success fade show" role="alert">
+      <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+      <strong>Success!</strong> Your watch has been added to your cart. You can see your cart at the top of your screen.</div>
+  </div>
+
   <div class="row" style="width:100%">
-    <div class="col col-12 col-sm-3 col-lg-2 bg-transparent">
-      <!-- Menu/categories will be placed here-->
-      <ul>
-        <li>Hardware</li>
-        <li>Software</li>
-        <li>Outdoor</li>
-        <li>Primary/Elementary School</li>
-        <li>University/College</li>
-      </ul>
+    <div class="col col-12 col-sm-3 col-lg-2 mt-5 bg-transparent">
+
+      <div class="vertical-nav" id="sidebar">
+        <p class="text-dark bg-warning text-center mb-0"><b>CATEGORIES</b></p>
+
+        <ul class="nav flex-column text-center bg-white" id="categories">
+          <li class="nav-item activeItem">
+            <a data-id="1" class="nav-link">
+              <img src="/img/adn-brands.svg" width="24px" height="24px" alt="All Courses">
+              All Courses
+            </a>
+          </li>
+          <li class="nav-item">
+            <a data-id="2" class="nav-link">
+              <img src="/img/code-solid.svg" width="24px" height="24px" alt="Software">
+              Software
+            </a>
+          </li>
+          <li class="nav-item">
+            <a data-id="3" class="nav-link">
+              <img src="/img/hiking-solid.svg" width="24px" height="24px" alt="Business">
+              Business
+            </a>
+          </li>
+          <li class="nav-item">
+            <a data-id="4" class="nav-link">
+              <img src="/img/graduation-cap-solid.svg" width="24px" height="24px" alt="Web Development">
+              Web Development
+            </a>
+          </li>
+          <li class="nav-item">
+            <a data-id="5" class="nav-link">
+              <img src="/img/brain-solid.svg" width="24px" height="24px" alt="Leadership">
+              Leadership
+            </a>
+          </li>
+        </ul>
+
+      </div>
+
     </div>
+
     <div class="col col-12 col-sm-9 col-lg-10">
       <div id="products" class="container center">
-        <!-- Products (courses) will be placed here-->
-        <!--                 <ul>
-                <li v-for="product in products"> {{product}} </li>
-            </ul> -->
-
 
         <div class="container mt-5 mb-3">
-          <div class="row">
+          <div class="row" id="courses">
 
-            <div class="col-md-3" v-for="product in products">
-              <div class="card p-3 mb-2">
-
-                {{product}}
-
-                <!-- <div class="d-flex justify-content-between">
-                                <div class="d-flex flex-row align-items-center">
-                                    <div class="icon"> <i class="bx bxl-mailchimp"></i> </div>
-                                    <div class="ms-2 c-details">
-                                        <h6 class="mb-0">Mailchimp</h6> <span>1 days ago</span>
-                                    </div>
-                                </div>
-                                <div class="badge"> <span>Design</span> </div>
-                            </div>
-                            <div class="mt-5">
-                                <h3 class="heading">Senior Product<br>Designer-Singapore</h3>
-                                <div class="mt-5">
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <div class="mt-3"> <span class="text1">32 Applied <span class="text2">of 50 capacity</span></span> </div>
-                                </div>
-                            </div> -->
+            <div class="card m-2" v-for="product in productsAll" style="width: 17rem;">
+              <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger"
+                v-if="!(dateNow - product.creationDate > 1209600000)">
+                NEW COURSE
+              </span>
+              <img src="/tile.png" class="card-img-top p-3" alt="Course">
+              <div class="card-body">
+                <h5 class="card-title" style="display:inline-block;">{{product.name}}</h5>
+                <span class="badge bg-success" style="float:right;">
+                  $ {{product.salePrice}}
+                </span>
+                <p class="card-text">{{product.description}}</p>
+                <button class="btn btn-warning buyBtn" :data-name="product.name"
+                  :data-price="product.salePrice">Enroll</button>
+                <a :href="'courseDetails.html?id=' + product.id" class="btn btn-primary" style="float:right;">See Details</a>
               </div>
             </div>
 
           </div>
         </div>
 
-
       </div>
+
+
       <div class="spinner container-fluid">
         <div class="spinner-border" role="status" id="spinner" style="display: none;">
           <span class="visually-hidden"></span>
@@ -113,11 +145,11 @@
   </div>
 
   <!-- Scripts -->
+  <script src="https://unpkg.com/vue@next"></script>
   <script src="js/vendor/modernizr-3.11.2.min.js"></script>
   <script src="js/plugins.js"></script>
-  <script src="https://unpkg.com/vue@next"></script>
+  <script src="js/getCoursesByTypeId.js"></script>
   <script src="js/main.js"></script>
-
   <!-- Google Analytics: UA-XXXXX-Y will be my site's ID. -->
   <script>
     window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
