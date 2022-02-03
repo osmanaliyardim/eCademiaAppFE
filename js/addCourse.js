@@ -92,59 +92,34 @@ saveButton.addEventListener('click', async (e) => {
   let salePrice = document.getElementById("salePrice").value;
   let duration = document.getElementById("duration").value;
   let language = document.getElementById("language").value;
-  let email = window.localStorage.getItem("email");
-  const userData = {
-    userMail: email,
-    requiredRoles: "admin,moderator,course.add"
-  }
-  await fetch("https://localhost:7223/api/v1/Auth/isAuthenticated", {
+  // Make user's data JSON/array format
+  const data = {
+    name: courseName,
+    description: courseDescription,
+    price: price,
+    salePrice: salePrice,
+    duration: duration,
+    language: language
+  };
+  await fetch("https://localhost:7223/api/v1/Courses/add", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(userData),
-  }).then(async (resUser) => {
-    let userInfo = await resUser.json();
-    if (resUser.ok) {
-      // Make user's data JSON/array format
-      const data = {
-        name: courseName,
-        description: courseDescription,
-        price: price,
-        salePrice: salePrice,
-        duration: duration,
-        language: language
-      };
-      await fetch("https://localhost:7223/api/v1/Courses/add", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      }).then(async (res) => {
-        let info = await res.json();
-        if (res.ok) {
-          // if response is successfull
-          e.preventDefault();
-          alertInfo.innerHTML = info.message;
-          alertBox.classList.remove("d-none");
-          courseName, courseDescription, price, salePrice, duration, language = "";
-          setTimeout(function () {
-            alertBox.classList.add("d-none");
-          }, 3000);
-        }
-        else {
-          // if response is not successfull
-          e.preventDefault();
-          alertInfo.innerHTML = info.Message || info.message;
-          alertBox.classList.remove("d-none");
-
-          setTimeout(function () {
-            alertBox.classList.add("d-none");
-          }, 3000);
-        }
-      });
+    body: JSON.stringify(data),
+  }).then(async (res) => {
+    e.preventDefault();
+    let info = await res.json();
+    if (res.ok) {
+      // if response is successfull
+      alertInfo.innerHTML = info.message;
+      alertBox.classList.remove("d-none");
+      courseName, courseDescription, price, salePrice, duration, language = "";
+      setTimeout(function () {
+        alertBox.classList.add("d-none");
+      }, 3000);
     }
-    else{
+    else {
       // if response is not successfull
-      e.preventDefault();
-      alertInfo.innerHTML = userInfo.Message || userInfo.message;
+      alertInfo.innerHTML = info.Message || info.message;
       alertBox.classList.remove("d-none");
 
       setTimeout(function () {
